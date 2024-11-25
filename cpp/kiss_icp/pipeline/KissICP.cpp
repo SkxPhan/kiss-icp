@@ -76,7 +76,7 @@ KissICP::Vector3dVectorTuple KissICP::RegisterFrame(const std::vector<Eigen::Vec
     adaptive_threshold_.UpdateModelDeviation(model_deviation);
     local_map_.Update(frame_downsample, new_pose);
     last_delta_ = last_pose_.inverse() * new_pose;
-    last_pose_ = new_pose; // The new pose should be transmitted to the IMU node
+    last_pose_ = new_pose;
 
     // Return the (deskew) input raw scan (frame) and the points used for registration (source)
     return {frame, source};
