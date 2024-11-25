@@ -34,6 +34,13 @@
 namespace kiss_icp::pipeline {
 
 KissICP::Vector3dVectorTuple KissICP::RegisterFrame(const std::vector<Eigen::Vector3d> &frame,
+                                                    const std::vector<double> &timestamps,
+                                                    const Sophus::SE3d &delta) {
+    last_delta_ = delta;
+    return RegisterFrame(frame, timestamps);
+}
+
+KissICP::Vector3dVectorTuple KissICP::RegisterFrame(const std::vector<Eigen::Vector3d> &frame,
                                                     const std::vector<double> &timestamps) {
     const auto &deskew_frame = [&]() -> std::vector<Eigen::Vector3d> {
         if (!config_.deskew || timestamps.empty()) return frame;
