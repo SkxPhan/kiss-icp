@@ -33,7 +33,7 @@ else()
   include(FetchContent)
   FetchContent_Declare(
     ext_kiss_icp_core PREFIX kiss_icp_core
-    URL https://github.com/PRBonn/kiss-icp/archive/refs/tags/v${CMAKE_PROJECT_VERSION}.tar.gz SOURCE_SUBDIR
+    URL https://github.com/SkxPhan/kiss-icp/tree/imu-integration SOURCE_SUBDIR
         cpp/kiss_icp)
   FetchContent_MakeAvailable(ext_kiss_icp_core)
 endif()

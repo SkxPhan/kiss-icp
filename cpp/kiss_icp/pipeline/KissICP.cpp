@@ -34,6 +34,13 @@
 namespace kiss_icp::pipeline {
 
 KissICP::Vector3dVectorTuple KissICP::RegisterFrame(const std::vector<Eigen::Vector3d> &frame,
+                                                    const std::vector<double> &timestamps,
+                                                    const Sophus::SE3d &delta) {
+    last_delta_ = delta;
+    return RegisterFrame(frame, timestamps);
+}
+
+KissICP::Vector3dVectorTuple KissICP::RegisterFrame(const std::vector<Eigen::Vector3d> &frame,
                                                     const std::vector<double> &timestamps) {
     const auto &deskew_frame = [&]() -> std::vector<Eigen::Vector3d> {
         if (!config_.deskew || timestamps.empty()) return frame;
@@ -69,7 +76,7 @@ KissICP::Vector3dVectorTuple KissICP::RegisterFrame(const std::vector<Eigen::Vec
     adaptive_threshold_.UpdateModelDeviation(model_deviation);
     local_map_.Update(frame_downsample, new_pose);
     last_delta_ = last_pose_.inverse() * new_pose;
-    last_pose_ = new_pose;
+    last_pose_ = new_pose; // The new pose should be transmitted to the IMU node
 
     // Return the (deskew) input raw scan (frame) and the points used for registration (source)
     return {frame, source};
