@@ -34,7 +34,6 @@ else()
   FetchContent_Declare(
     ext_kiss_icp_core PREFIX kiss_icp_core
     GIT_REPOSITORY https://github.com/SkxPhan/kiss-icp.git
-    GIT_TAG imu-integration
     SOURCE_SUBDIR cpp/kiss_icp)
   FetchContent_MakeAvailable(ext_kiss_icp_core)
 endif()
